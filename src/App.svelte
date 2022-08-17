@@ -3,6 +3,6 @@
   import Stave from "./lib/Stave.svelte";
 </script>
 
-<h1>Rhythm Trainer</h1>
+<h1>🎶 Rhythm Trainer 🎵</h1>
 <Stave />
 <Controls />

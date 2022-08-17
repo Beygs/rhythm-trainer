@@ -3,7 +3,9 @@
   import { rhythms } from "./stores";
   import {
     Beam,
+    Dot,
     Formatter,
+    Note,
     RenderContext,
     Renderer,
     Stave,
@@ -37,12 +39,23 @@
 
     if (stave && $rhythms.length > 0) {
       const notes = $rhythms.map((rhythm) =>
-        rhythm.map(
-          (r) => new StaveNote({ keys: ["b/4"], duration: r.toString() })
-        )
+        rhythm.map((r) => {
+          const note = new StaveNote({
+            keys: ["b/4"],
+            duration: r.dur.toString(),
+          });
+
+          if (r.dotted) Dot.buildAndAttach([note]);
+
+          return note;
+        })
       );
       const allNotes = notes.flat();
-      const beams = notes.map((n) => (n.length > 1 ? new Beam(n) : null));
+      const beams = notes.map((n) =>
+        n.length > 1 && !n.find((v) => parseInt(v.getDuration()) < 8)
+          ? new Beam(n)
+          : null
+      );
 
       Formatter.FormatAndDraw(context, stave, allNotes);
 
@@ -53,6 +66,12 @@
       });
     }
   }
+
+  const dotted = (staveNote: StaveNote) => {
+    Dot.buildAndAttach([staveNote], {
+      all: true,
+    });
+  };
 </script>
 
 <div class="stave" bind:this={staveDiv} />

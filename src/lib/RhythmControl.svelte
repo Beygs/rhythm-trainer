@@ -1,9 +1,9 @@
 <script lang="ts">
   import { rhythms } from "./stores";
 
-  export let rhythmsToAdd: number[];
+  export let rhythmsToAdd: Rhythm[];
 
-  const addRhythm = (...newRhythms: number[]) => {
+  const addRhythm = (...newRhythms: Rhythm[]) => {
     rhythms.update((r) => [...r, newRhythms]);
   };
 </script>

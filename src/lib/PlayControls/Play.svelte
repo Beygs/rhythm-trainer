@@ -14,15 +14,16 @@
     $rhythms.forEach((rhythm) => {
       let subdiv = 0;
 
-      rhythm.forEach((dur) => {
+      rhythm.forEach((r) => {
         Tone.Transport.scheduleOnce((time) => {
-          synth.triggerAttackRelease(`${dur}n`, time);
+          synth.triggerAttackRelease(`${r.dur}n${r.dotted ? "." : ""}`, time);
         }, `0:${beat}:${subdiv}`);
 
-        subdiv += (4 / dur) * 4;
+        subdiv += 4 / r.dur * 4;
+        if (r.dotted) subdiv += 4 / r.dur * 2;
       });
 
-      beat += rhythm.reduce((a, b) => a + 1 / b, 0) * 4;
+      beat += Math.ceil(rhythm.reduce((a, b) => a + 1 / b.dur, 0) * 4);
     });
 
     Tone.Transport.scheduleOnce(() => {

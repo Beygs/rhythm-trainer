@@ -2,7 +2,7 @@
   import RhythmControl from "../RhythmControl.svelte";
 </script>
 
-<RhythmControl rhythmsToAdd={[16, 16, 16, 16]}>
+<RhythmControl rhythmsToAdd={[16, 16, 16, 16].map((dur) => ({ dur }))}>
   <svg width="50" height="50" viewBox="25 10 50 70"
     ><g class="vf-stavenote" id="vf-auto1186"
       ><g class="vf-note" pointer-events="bounding-box"

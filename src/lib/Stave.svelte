@@ -5,7 +5,6 @@
     Beam,
     Dot,
     Formatter,
-    Note,
     RenderContext,
     Renderer,
     Stave,

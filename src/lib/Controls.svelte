@@ -1,5 +1,6 @@
 <script lang="ts">
   import { rhythms } from "./stores";
+  import rhythmData from "./rhythmData";
   import HalfNote from "./RhythmControls/HalfNote.svelte";
   import QuarterNote from "./RhythmControls/QuarterNote.svelte";
   import Two8ths from "./RhythmControls/Two8ths.svelte";
@@ -19,6 +20,11 @@
     rhythms.set([]);
     bpm = 80;
   };
+
+  const random = () => {
+    const sequence = new Array(4).fill(null).map(() => rhythmData[Math.floor(Math.random() * rhythmData.length)]);
+    rhythms.set(sequence);
+  }
 </script>
 
 <HalfNote />
@@ -35,6 +41,7 @@
 <Play {bpm} />
 <Stop />
 <button on:click={reset}>Reset</button>
+<button on:click={random}>Random</button>
 <br />
 <label>
   BPM: {bpm}
